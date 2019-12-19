@@ -1,0 +1,33 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'maven-publish'
+
+    group = 'org.eclipse.buildship.sample'
+    version = '1.0'
+    
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    
+
+    dependencies {
+        compile gradleApi()
+    }    
+    
+    publishing {
+        repositories {
+            maven { 
+                url "$rootProject.projectDir/repo"
+            }
+        }
+
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+    
+    eclipse.project.name = "custom-model-${project.name}"
+    
+}
